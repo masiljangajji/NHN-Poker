@@ -1,8 +1,10 @@
+package model;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import model.Card;
 
 public class CardSet {
 
@@ -12,7 +14,7 @@ public class CardSet {
     // 52장의 카드 셋을 가지고 있는 list
 
 
-    void giveCard(List<Card>list){
+    void giveCard(List<Card>list){ // 여기에 타입을 줄까
         Set<Integer>set = selectCard();
 
         for(Integer idx:set){
