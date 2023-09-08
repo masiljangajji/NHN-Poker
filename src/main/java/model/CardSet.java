@@ -13,6 +13,23 @@ public class CardSet {
 
     // 52장의 카드 셋을 가지고 있는 list
 
+    // remove , delete
+
+
+    void initSet(){
+
+        // String number;  // 숫자     ace , 2 3 4 5 6 7 8 9 10  , Joney , Queem , King   , Ace는 1도되고 14도 된다 .
+
+        String []symbols={"Heart","Spade","Clover","DIA"};
+        String []numbers={"Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","J","Q","K"};
+        
+        for(int i=0;i< numbers.length;i++){
+            for(int j=0;j< symbols.length;j++){
+                this.list.add(new Card(numbers[i], symbols[j]));
+            }
+        }
+    }
+
 
     void giveCard(List<Card>list){ // 여기에 타입을 줄까
         Set<Integer>set = selectCard();
