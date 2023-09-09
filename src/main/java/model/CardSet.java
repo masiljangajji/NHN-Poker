@@ -8,10 +8,10 @@ import java.util.Queue;
 public class CardSet {
 
 
-    private final Queue<Card> cardQueue = new LinkedList<>();
+    private final List<Card> cardList = new LinkedList<>();
 
-    public Queue<Card> getList() {
-        return this.cardQueue;
+    public List<Card> getList() {
+        return this.cardList;
     }
 
     public CardSet() {
@@ -40,7 +40,7 @@ public class CardSet {
 
         while(!list.isEmpty()){
             int num=(int)(Math.random()*(list.size()));
-            this.cardQueue.add(list.get(num));
+            this.cardList.add(list.get(num));
             list.remove(num);
         }
 
@@ -50,7 +50,7 @@ public class CardSet {
     public void giveCard(User user) { // 여기에 타입을 줄까
 
         for (int i = 0; i < 5; i++) {
-            user.add(this.cardQueue.poll()); // 플레이어 카드 셋에 추가
+            user.add(this.cardList.remove(0)); // 플레이어 카드 셋에 추가
         }
     } // 카드 뽑아서 플레이어들 한테 줄꺼임 , 이건 random하게 뽑을꺼고 , 뽑힌 idx는 remove해주면 됨
 
