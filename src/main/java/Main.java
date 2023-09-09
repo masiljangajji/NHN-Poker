@@ -40,7 +40,6 @@ public class Main {
         logger.info("교환할 카드 개수를 입력해 주세요");
 
         int number;
-        int number2;
 
         while (true) {
             try {
@@ -58,13 +57,15 @@ public class Main {
 
         logger.info("교환할 카드가 몇 번째 카드인지 입력해 주세요");
 
+        int []changeIdx = new int[number];
+
         for (int i = 0; i < number; i++) {
             logger.info("교환할 카드 : {}개 남았습니다",number-i);
 
             while (true) {
                 try {
-                    number2 = sc.nextInt();
-                    if (!(number2 >= 1 && number2 <= 5)) {
+                    changeIdx[i] = sc.nextInt();
+                    if (!(changeIdx[i] >= 1 && changeIdx[i] <= 5)) {
                         throw new IllegalArgumentException();
                     }
                 } catch (IllegalArgumentException | InputMismatchException e) {
