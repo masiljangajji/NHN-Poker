@@ -1,9 +1,10 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import controller.Input;
 import model.CardSet;
 import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.CardSetService;
+import service.UserService;
 
 public class Main {
 
@@ -11,73 +12,35 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         CardSet cardSet = new CardSet();
 
-        User user1 = new User(); //
-        User user2 = new User(); //
+        int num = Input.playerNumber();
+        logger.info("Player는 총 {}명 입니다.", num);
 
-        cardSet.giveCard(user1); // 5개 받음
-        cardSet.giveCard(user2); // 5개 받음
+        int order = (int) (Math.random() * (num) + 1); // 최대 num 최소 1
 
-        logger.info(String.valueOf(user1.getList().size())); //5
-        logger.info(String.valueOf(user2.getList().size())); //5
+        logger.info("User는 {}번쨰 차례 입니다.", order);
 
+        User[] users = new User[num];
 
-        user1.printCardSet();
-
-        getInput();
-
-
-        // 인당 5장씩 받아 -> 사용자에게 뭐 뽑혔는지 알려줘 -> 그 후에 맘에 안드는거 버려
-    }
-
-    public static void getInput() {
-
-        Scanner sc = new Scanner(System.in);
-
-
-        logger.info("교환할 카드 개수를 입력해 주세요");
-
-        int number;
-
-        while (true) {
-            try {
-                number = sc.nextInt();
-                if (!(number >= 0 & number <= 5)) {
-                    throw new IllegalArgumentException();
-                }
-            } catch (IllegalArgumentException | InputMismatchException e) {
-                logger.warn("개수 입력은 0~5 사이의 숫자만 가능합니다 !!\n다시 입력해 주세요");
-                sc.nextLine();
-                continue;
-            }
-            break;
+        for (int i = 1; i <= num; i++) {
+            CardSetService.giveCard(cardSet, users[i - 1]); // 전체 플레이어한테 5장씩 줌
         }
 
-        logger.info("교환할 카드가 몇 번째 카드인지 입력해 주세요");
+        users[order - 1].printCardSet(); // 유저가 가진 것 출력
 
-        int []changeIdx = new int[number];
+        // 컴퓨터들 숫자 버림 , 이거 알고리즘 구현  페어 구현 되는지 -> 구현됐됐다면 높은 숫자 -> 높은 무늬
 
-        for (int i = 0; i < number; i++) {
-            logger.info("교환할 카드 : {}개 남았습니다",number-i);
+        int[] swapList = Input.swapCard(); // 카드 바꿀 꺼임
 
-            while (true) {
-                try {
-                    changeIdx[i] = sc.nextInt();
-                    if (!(changeIdx[i] >= 1 && changeIdx[i] <= 5)) {
-                        throw new IllegalArgumentException();
-                    }
-                } catch (IllegalArgumentException | InputMismatchException e) {
-                    logger.warn("입력은 1~5사이만 가능합니다!!\n다시 입력해 주세요");
-                    sc.nextLine();
-                    continue;
-                }
-                break;
-            }
-        }
+        CardSetService.userThrowCard(cardSet, users[order], swapList); // 여기다가 버려
+        UserService.userReceiveCard(cardSet, users[order], swapList); // 새로 받아
+
+        // 족보 구현해서 누가 이겼는지 체크
+
 
 
     }
+
 
 }
