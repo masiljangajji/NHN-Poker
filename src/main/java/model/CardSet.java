@@ -10,10 +10,6 @@ public class CardSet {
 
     private final List<Card> cardList = new LinkedList<>();
 
-    public List<Card> getList() {
-        return this.cardList;
-    }
-
     public CardSet() {
         initSet();
     }
@@ -47,6 +43,11 @@ public class CardSet {
 
     public Card remove(){
         return this.cardList.remove(0);
+    }
+
+    public void add(Card card){
+        int num=(int)(Math.random()*(this.cardList.size()));
+        this.cardList.add(num,card);
     }
 
 
