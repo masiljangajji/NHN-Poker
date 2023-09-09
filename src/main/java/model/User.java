@@ -10,27 +10,32 @@ public class User {
 
     private static final Logger logger = LoggerFactory.getLogger(User.class);
 
-    List<Card> list = new ArrayList<>();
+
+    Card []list = new Card[5];
 
 
-    public void add(Card card) {
-        this.list.add(card);
+    public void add(int idx,Card card) {
+        if(this.list[idx-1]!=null){
+            throw new IllegalArgumentException("값이 이미 있습니다.");
+        }
+        this.list[idx-1]=card;
     }
 
-    public void remove(int idx) {
-        this.list.remove(idx);
+    public Card remove(int idx) {
+
+        if(this.list[idx-1]==null){
+            throw new IllegalArgumentException("값이 이미 없습니다.");
+        }
+        Card card = this.list[idx];
+        this.list[idx-1]=null;
+        return card;
     }
 
     public void printCardSet() {
-        Iterator<Card> iterator = list.iterator();
 
-        for (int i = 0; i < list.size(); i++) {
-            logger.info("{} 번째 카드 " + list.get(i), i + 1);
+        for (int i = 0; i < list.length; i++) {
+            logger.info("{} 번째 카드 " + list[i], i + 1);
         }
-    }
-
-    public List<Card> getList() {
-        return list;
     }
 
 }
