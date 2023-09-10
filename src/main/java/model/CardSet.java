@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Card들의 집합을 나타냄 , 52장의 카드를 무작위로 갖음 .
+ */
 public class CardSet {
 
     private final List<Card> cardList = new LinkedList<>();
@@ -12,12 +15,10 @@ public class CardSet {
         initSet();
     }
 
-    // 52장의 카드 셋을 가지고 있는 list
 
 
     private void initSet() {
 
-        // String number;  // 숫자     ace , 2 3 4 5 6 7 8 9 10  , Joney , Queem , King   , Ace는 1도되고 14도 된다 .
 
         List<Card> list = new ArrayList<>();
 

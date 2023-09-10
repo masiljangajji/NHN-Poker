@@ -2,8 +2,11 @@ package model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import view.Message;
+import view.RankMessage;
 
+/**
+ * Player를 나타냄 카드를 받고 삭제하는 기능 , 카드의 우선순위를 판별함.
+ */
 public class User {
 
     private static final Logger logger = LoggerFactory.getLogger(User.class);
@@ -12,7 +15,12 @@ public class User {
 
     private boolean isAce = false;
 
-
+    /**
+     * 카드를 받음 .
+     *
+     * @param idx  카드를 넣을 index.
+     * @param card 받을 카드.
+     */
     public void add(int idx, Card card) {
 
         if (this.list[idx - 1] != null) {
@@ -22,6 +30,12 @@ public class User {
         this.list[idx - 1] = card;
     }
 
+    /**
+     * 카드를 삭제함.
+     *
+     * @param idx 삭제할 카드의 index.
+     * @return 삭제된 카드.
+     */
     public Card remove(int idx) {
 
         if (this.list[idx - 1] == null) {
@@ -33,14 +47,20 @@ public class User {
         return card;
     }
 
+    /**
+     * 가지고 있는 카드를 출력함.
+     */
     public void printCardSet() {
         logger.info("현제 가지고 있는 카드");
         for (int i = 0; i < this.list.length; i++) {
-            Message.printCard(i + 1, this.list[i]);
+            RankMessage.printCard(i + 1, this.list[i]);
         }
         logger.info("");
     }
 
+    /**
+     * 카드를 정렬함 , {숫자,무늬}  정렬 .
+     */
     private void sort() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
@@ -59,6 +79,12 @@ public class User {
         }
     }
 
+    /**
+     * 우선순위 결과를 나타냄.
+     *
+     * @param idx 몇번째 Player인지.
+     * @return 우선순위 정보를 가진 Result Type .
+     */
     public Result checkRank(int idx) {
 
         sort();
@@ -85,11 +111,11 @@ public class User {
 
         for (int i = 0; i <= 11; i++) {
             if (result[i] != null) {
-                Message.printRank(idx, result[i]);
+                RankMessage.printRank(idx, result[i]);
                 return result[i];
             }
         }
-        Message.printRank(idx, result[12]);
+        RankMessage.printRank(idx, result[12]);
         return result[12];
     }
 
@@ -143,15 +169,15 @@ public class User {
 
     private Result fullHouse() { // 같은 숫자 3개 , 같은 숫자 2개
 
-        if (list[0].getNumber() == list[1].getNumber() && list[1].getNumber() == list[2].getNumber() &&
-                list[3].getNumber() == list[4].getNumber()) {
+        if (list[0].getNumber() == list[1].getNumber() && list[1].getNumber() == list[2].getNumber()
+                && list[3].getNumber() == list[4].getNumber()) {
             if (isAce) {
                 return new Result(35, 14, list[0].getSuit());
             }
             return new Result(35, list[4].getNumber(), list[4].getSuit());
         }
-        if ((list[0].getNumber() == list[1].getNumber()) && (list[2].getNumber() == list[3].getNumber()) &&
-                (list[3].getNumber() == list[4].getNumber())) {
+        if ((list[0].getNumber() == list[1].getNumber()) && (list[2].getNumber() == list[3].getNumber())
+                && (list[3].getNumber() == list[4].getNumber())) {
             if (isAce) {
                 return new Result(35, 14, list[0].getSuit());
             }
@@ -160,7 +186,7 @@ public class User {
         return null;
     }
 
-    private Result flush() { // 모두 같은 무늬 , Ace생각
+    private Result flush() { // 모두 같은 무늬
         int suit = list[0].getSuit();
 
         for (int i = 1; i <= 4; i++) {
@@ -174,9 +200,9 @@ public class User {
         return new Result(36, list[4].getNumber(), list[4].getSuit());
     }
 
-    private Result mountain() {// 10 J Q K ACE
-        if (list[0].getNumber() == 1 && list[1].getNumber() == 10 && list[2].getNumber() == 11 &&
-                list[3].getNumber() == 12 && list[4].getNumber() == 13) {
+    private Result mountain() { // 10 J Q K  A
+        if (list[0].getNumber() == 1 && list[1].getNumber() == 10 && list[2].getNumber() == 11
+                && list[3].getNumber() == 12 && list[4].getNumber() == 13) {
             return new Result(37, 14, list[0].getSuit());
         }
         return null;
@@ -184,12 +210,12 @@ public class User {
 
     private Result backStraight() { // A 2 3 4 5
         if (isAce) {
-            if (list[1].getNumber() == 10 && list[2].getNumber() == 11 && list[3].getNumber() == 12 &&
-                    list[4].getNumber() == 13) {
+            if (list[1].getNumber() == 10 && list[2].getNumber() == 11 && list[3].getNumber() == 12
+                    && list[4].getNumber() == 13) {
                 return new Result(38, 14, list[0].getSuit());
             }
-            if (list[1].getNumber() == 2 && list[2].getNumber() == 3 && list[3].getNumber() == 4 &&
-                    list[4].getNumber() == 5) {
+            if (list[1].getNumber() == 2 && list[2].getNumber() == 3 && list[3].getNumber() == 4
+                    && list[4].getNumber() == 5) {
                 return new Result(38, 14, list[0].getSuit());
             }
         }
@@ -213,8 +239,7 @@ public class User {
 
 
         if (list[0].getNumber() == list[1].getNumber() && list[1].getNumber() == list[2].getNumber()) {
-            if (isAce) // Ace체크
-            {
+            if (isAce) {
                 return new Result(40, 14, list[4].getSuit());
             }
             return new Result(40, list[2].getNumber(), list[2].getSuit());
@@ -272,8 +297,7 @@ public class User {
     }
 
     private Result noPair() {
-        if (isAce) // Ace 존재함
-        {
+        if (isAce) {
             return new Result(43, 14, list[0].getSuit());
         }
         return new Result(43, list[4].getNumber(), list[4].getSuit());

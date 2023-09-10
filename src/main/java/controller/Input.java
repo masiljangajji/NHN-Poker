@@ -5,12 +5,22 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 게임진행에 필요한 사용자 입력을 받는 클래스.
+ */
 public class Input {
 
-    // 입력 받는 모든 것
+    /**
+     * 사용자의 입력과 입력의 유효성을 검사하는 연산들의 집합.
+     */
     private static final Logger logger = LoggerFactory.getLogger(Input.class);
     private static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * 게임을 진행할 Player의 수를 입력 받음.
+     *
+     * @return 게임 진행할 Player 수 .
+     */
     public static int playerNumber() {
         int num;
         while (true) {
@@ -25,15 +35,26 @@ public class Input {
                 sc.nextLine();
                 continue;
             }
+            logger.info("Player는 총 {}명 입니다.", num);
             return num;
         }
     }
 
+    /**
+     * 버릴 카드를 선택한 후 CardSet 으로 부터 다시 카드를 받음.
+     *
+     * @return 교환할 카드들의 index를 반환.
+     */
     public static int[] swapCard() {
         int number = throwCardAmount();
         return getCard(number);
     }
 
+    /**
+     * 교환할 카드의 개수를 입력 받는다.
+     *
+     * @return 교환할 카드의 개수.
+     */
     public static int throwCardAmount() {
 
         int number;
@@ -53,6 +74,12 @@ public class Input {
         }
     }
 
+    /**
+     * 교환할 카드의 index를 입력받음.
+     *
+     * @param number 교환할 카드의 개수.
+     * @return 교환할 카드의 index.
+     */
     public static int[] getCard(int number) {
 
         if (number == 0) {

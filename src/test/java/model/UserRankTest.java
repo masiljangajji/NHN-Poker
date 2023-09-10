@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import service.ResultService;
+import service.GameService;
 
 class UserRankTest {
 
@@ -293,7 +293,7 @@ class UserRankTest {
     @DisplayName("GetWinner Test 정상 작동 족보 다른 경우")
     void getWinnerTest() {
 
-        User[] users= new User[2];
+        User[] users = new User[2];
 
         user.add(1, new Card(10, 21));
         user.add(2, new Card(11, 21));
@@ -301,16 +301,16 @@ class UserRankTest {
         user.add(4, new Card(13, 21));
         user.add(5, new Card(1, 21));
 
-        users[0]=user;
+        users[0] = user;
         User user2 = new User();
         user2.add(1, new Card(6, 23));
         user2.add(2, new Card(5, 22));
         user2.add(3, new Card(13, 21));
         user2.add(4, new Card(7, 21));
         user2.add(5, new Card(3, 24));
-        users[1]=user2;
+        users[1] = user2;
 
-        Assertions.assertEquals(ResultService.getWinner(users),1);
+        Assertions.assertEquals(GameService.getWinner(users), 1);
 
     }
 
@@ -318,7 +318,7 @@ class UserRankTest {
     @DisplayName("GetWinner Test 정상 작동 족보 같은 경우")
     void getWinnerTest2() {
 
-        User[] users= new User[2];
+        User[] users = new User[2];
 
         user.add(1, new Card(10, 23));
         user.add(2, new Card(10, 22));
@@ -326,23 +326,23 @@ class UserRankTest {
         user.add(4, new Card(4, 21));
         user.add(5, new Card(5, 24));
 
-        users[0]=user;
+        users[0] = user;
 
         user2.add(1, new Card(12, 21));
         user2.add(2, new Card(12, 22));
         user2.add(3, new Card(11, 21));
         user2.add(4, new Card(4, 21));
         user2.add(5, new Card(5, 24));
-        users[1]=user2;
+        users[1] = user2;
 
-        Assertions.assertEquals(ResultService.getWinner(users),2);
+        Assertions.assertEquals(GameService.getWinner(users), 2);
     }
 
     @Test
     @DisplayName("GetWinner Test 정상 작동 족보,숫자 같은 경우")
     void getWinnerTest3() {
 
-        User[] users= new User[2];
+        User[] users = new User[2];
 
         user.add(1, new Card(10, 23));
         user.add(2, new Card(10, 22));
@@ -350,22 +350,22 @@ class UserRankTest {
         user.add(4, new Card(4, 21));
         user.add(5, new Card(5, 24));
 
-        users[0]=user;
+        users[0] = user;
         user2.add(1, new Card(10, 24));
         user2.add(2, new Card(10, 22));
         user2.add(3, new Card(11, 21));
         user2.add(4, new Card(4, 21));
         user2.add(5, new Card(5, 24));
-        users[1]=user2;
+        users[1] = user2;
 
-        Assertions.assertEquals(ResultService.getWinner(users),2);
+        Assertions.assertEquals(GameService.getWinner(users), 2);
     }
 
     @Test
     @DisplayName("GetWinner Test 정상 작동 족보,숫자,무늬 같은 경우")
     void getWinnerTest4() {
 
-        User[] users= new User[2];
+        User[] users = new User[2];
 
         user.add(1, new Card(10, 23));
         user.add(2, new Card(10, 22));
@@ -373,17 +373,16 @@ class UserRankTest {
         user.add(4, new Card(4, 21));
         user.add(5, new Card(5, 24));
 
-        users[0]=user;
+        users[0] = user;
         user2.add(1, new Card(10, 23));
         user2.add(2, new Card(10, 22));
         user2.add(3, new Card(11, 21));
         user2.add(4, new Card(4, 21));
         user2.add(5, new Card(5, 24));
-        users[1]=user2;
+        users[1] = user2;
 
-        Assertions.assertEquals(ResultService.getWinner(users),1);
+        Assertions.assertEquals(GameService.getWinner(users), 1);
     }
-
 
 
 }
