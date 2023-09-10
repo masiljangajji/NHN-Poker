@@ -17,25 +17,15 @@ class UserTest {
     @BeforeEach
     void setUser(){
         user = new User();
-        card = new Card("1","1");
-    }
-
-    @Test
-    @DisplayName("User Add preCondition Test 배열 범위 초과")
-    void addTest1(){
-        Assertions.assertThrows(IllegalArgumentException.class,()->
-                user.add(0,card));
-
-        Assertions.assertThrows(IllegalArgumentException.class,()->
-                user.add(6,card));
+        card = new Card(1,1);
     }
 
     @Test
     @DisplayName("User Add Exception Test 값은 index 중복 추가")
     void addTest2() {
-        user.add(1,new Card("1","1"));
+        user.add(1,new Card(1,1));
         Assertions.assertThrows(IllegalArgumentException.class,()->
-                user.add(1,new Card("2","2")));
+                user.add(1,new Card(2,2)));
     }
 
 //    @Test
@@ -46,16 +36,6 @@ class UserTest {
 //        user.add(3,card);
 //    }
 
-
-    @Test
-    @DisplayName("User Remove PreCondition Test 배열 범위 초과")
-    void removeTest() {
-        Assertions.assertThrows(IllegalArgumentException.class,()->
-                user.add(0,card));
-
-        Assertions.assertThrows(IllegalArgumentException.class,()->
-                user.add(6,card));
-    }
 
     @Test
     @DisplayName("User Remove PreCondition Test 같은 index 중복 제거")

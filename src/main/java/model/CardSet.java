@@ -3,11 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class CardSet {
 
-
+    public static final String[] suits = {"a","Clover", "Heart", "Diamond", "Spade"};
+    public static final String[] ranks = {"a","Ace", "2", "3", "4", "5", "6", "7",
+            "8", "9", "10", "Jack", "Queen", "King"};
     private final List<Card> cardList = new LinkedList<>();
 
     public CardSet() {
@@ -21,33 +22,28 @@ public class CardSet {
 
         // String number;  // 숫자     ace , 2 3 4 5 6 7 8 9 10  , Joney , Queem , King   , Ace는 1도되고 14도 된다 .
 
-        String[] symbols = {"Heart", "Spade", "Clover", "DIA"};
-        String[] numbers =
-                {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "J", "Q", "K"};
-
-
         List<Card> list = new ArrayList<>();
 
-        for (int i = 0; i < numbers.length; i++) {
-            for (int j = 0; j < symbols.length; j++) {
-                list.add(new Card(numbers[i],symbols[j]));
+        for (int i = 1; i <= 13; i++) {
+            for (int j = 1; j <= 4; j++) {
+                list.add(new Card(i, j+20));
             }
         }
 
-        while(!list.isEmpty()){
-            int num=(int)(Math.random()*(list.size()));
+        while (!list.isEmpty()) {
+            int num = (int) (Math.random() * (list.size()));
             this.cardList.add(list.get(num));
             list.remove(num);
         }
     }
 
-    public Card remove(){
+    public Card remove() {
         return this.cardList.remove(0);
     }
 
-    public void add(Card card){
-        int num=(int)(Math.random()*(this.cardList.size()));
-        this.cardList.add(num,card);
+    public void add(Card card) {
+        int num = (int) (Math.random() * (this.cardList.size()));
+        this.cardList.add(num, card);
     }
 
 
