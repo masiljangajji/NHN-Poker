@@ -1,8 +1,5 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,39 +12,36 @@ class UserTest {
     Card card;
 
     @BeforeEach
-    void setUser(){
+    void setUser() {
         user = new User();
-        card = new Card(1,1);
+        card = new Card(1, 1);
     }
 
     @Test
-    @DisplayName("User Add Exception Test 값은 index 중복 추가")
-    void addTest2() {
-        user.add(1,new Card(1,1));
-        Assertions.assertThrows(IllegalArgumentException.class,()->
-                user.add(1,new Card(2,2)));
+    @DisplayName("User Add Exception Test 같은 index 중복 추가")
+    void addTest() {
+        user.add(1, new Card(1, 1));
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.add(1, new Card(2, 2)));
     }
 
-//    @Test
-//    @DisplayName("User Add PostCondition Test")
-//    void addTest3(){
-//        user.add(1,card);
-//        user.add(2,card);
-//        user.add(3,card);
-//    }
+    @Test
+    @DisplayName("User Remove Exception est 같은 index 중복 제거")
+    void removeTest() {
 
+        user.add(1, card);
+
+        user.remove(1);
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.remove(1));
+    }
 
     @Test
-    @DisplayName("User Remove PreCondition Test 같은 index 중복 제거")
+    @DisplayName("User Remove Exception Test 값이 존재하지 않는 index  제거")
     void removeTest2() {
 
-        user.add(1,card);
-
-        Assertions.assertThrows(IllegalArgumentException.class,()->
-                user.add(1,card));
-
-        Assertions.assertThrows(IllegalArgumentException.class,()->
-                user.add(1,card));
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.remove(1));
     }
 
 }

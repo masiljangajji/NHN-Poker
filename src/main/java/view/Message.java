@@ -37,6 +37,7 @@ public enum Message {
     MOUNTAIN(37),
     BACK_STRAIGHT(38),
     STRAIGHT(39),
+
     TRIPLE(40),
     TWO_PAIR(41),
     ONE_PAIR(42),
@@ -71,11 +72,10 @@ public enum Message {
     public static void printCard(int idx, Card card) {
         final Logger logger = LoggerFactory.getLogger(Message.class);
 
-
         logger.info("{} 번째 카드 " + Arrays.stream(values())
                 .filter(value -> value.value == card.getNumber())
                 .findAny().get()
-                +Arrays.stream(values())
+                + Arrays.stream(values())
                 .filter(value -> value.value == card.getSuit())
                 .findAny().get(), idx);
 

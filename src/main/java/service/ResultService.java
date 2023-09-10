@@ -19,7 +19,7 @@ public class ResultService {
             results = users[i].checkRank(i);
             if (results != null) {
 
-                if (results.getRank() < winRank) { //
+                if (results.getRank() < winRank) { // 족보 비교
                     winRank = results.getRank();
                     winIdx = i;
                     winNum = results.getNumber();

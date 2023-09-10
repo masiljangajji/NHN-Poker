@@ -13,7 +13,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         CardSet cardSet = new CardSet();
 
         int num = Input.playerNumber();
@@ -21,9 +20,8 @@ public class Main {
 
         int order = (int) (Math.random() * (num) + 1); // 최대 num 최소 1
 
-        logger.info("User는 {}번쨰 차례 입니다.\n", order);
+        logger.info("User는 {}번쨰 Player 입니다.\n", order);
 
-       // UserSet userSet = new UserSet(num);
         User[] users = new User[num];
 
         for (int i = 1; i <= num; i++) {
@@ -31,10 +29,8 @@ public class Main {
             CardSetService.giveCard(cardSet, users[i - 1]); // 전체 플레이어한테 5장씩 줌
         }
 
-
         users[order - 1].printCardSet(); // 유저가 가진 것 출력
 
-        // 컴퓨터들 숫자 버림 , 이거 알고리즘 구현  페어 구현 되는지 -> 구현됐됐다면 높은 숫자 -> 높은 무늬
 
         int[] swapList = Input.swapCard(); // 카드 바꿀 꺼임
 
@@ -48,11 +44,7 @@ public class Main {
         int winIdx = ResultService.getWinner(users);
 
 
-
-        logger.info("{}번쨰 Player가 이겼습니다 !",winIdx);
-
-
-
+        logger.info("\n{}번쨰 Player가 이겼습니다 !", winIdx);
 
 
     }

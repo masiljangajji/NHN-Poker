@@ -6,9 +6,6 @@ import java.util.List;
 
 public class CardSet {
 
-    public static final String[] suits = {"a","Clover", "Heart", "Diamond", "Spade"};
-    public static final String[] ranks = {"a","Ace", "2", "3", "4", "5", "6", "7",
-            "8", "9", "10", "Jack", "Queen", "King"};
     private final List<Card> cardList = new LinkedList<>();
 
     public CardSet() {
@@ -26,7 +23,7 @@ public class CardSet {
 
         for (int i = 1; i <= 13; i++) {
             for (int j = 1; j <= 4; j++) {
-                list.add(new Card(i, j+20));
+                list.add(new Card(i, j + 20));
             }
         }
 

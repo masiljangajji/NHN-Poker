@@ -29,7 +29,7 @@ public class Input {
         }
     }
 
-    public  static  int[] swapCard(){
+    public static int[] swapCard() {
         int number = throwCardAmount();
         return getCard(number);
     }
@@ -38,7 +38,7 @@ public class Input {
 
         int number;
         while (true) {
-            logger.info("교환할 카드 개수를 입력해 주세요");
+            logger.info("\n교환할 카드 개수를 입력해 주세요");
             try {
                 number = sc.nextInt();
                 if (!(number >= 0 & number <= 5)) {
@@ -54,8 +54,12 @@ public class Input {
     }
 
     public static int[] getCard(int number) {
+
+        if (number == 0) {
+            return new int[0];
+        }
         logger.info("교환할 카드가 몇 번째 카드인지 입력해 주세요");
-        int[]swapList=  new int[number];
+        int[] swapList = new int[number];
 
         for (int i = 0; i < number; i++) {
             logger.info("교환할 카드 : {}개 남았습니다", number - i);
@@ -73,7 +77,7 @@ public class Input {
                 }
                 break;
             }
-            swapList[i]=swapIdx;
+            swapList[i] = swapIdx;
         }
         return swapList;
     }

@@ -38,6 +38,7 @@ public class User {
         for (int i = 0; i < this.list.length; i++) {
             Message.printCard(i + 1, this.list[i]);
         }
+        logger.info("");
     }
 
     private void sort() {
@@ -65,7 +66,7 @@ public class User {
             isAce = true;
         }
 
-        Result[] result = new Result[12];
+        Result[] result = new Result[13];
 
         result[0] = royalStraightFlush();
         result[1] = backStraightFlush();
@@ -74,20 +75,22 @@ public class User {
         result[4] = fullHouse();
         result[5] = flush();
         result[6] = mountain();
-        result[7] = straight();
-        result[8] = triple();
-        result[9] = twoPair();
-        result[10] = onePair();
-        result[11] = noPair();
+        result[7] = backStraight();
+        result[8] = straight();
+        result[9] = triple();
+        result[10] = twoPair();
+        result[11] = onePair();
+        result[12] = noPair();
 
-        for (int i = 0; i <= 10; i++) {
+
+        for (int i = 0; i <= 11; i++) {
             if (result[i] != null) {
                 Message.printRank(idx, result[i]);
                 return result[i];
             }
         }
-        Message.printRank(idx, result[11]);
-        return result[11];
+        Message.printRank(idx, result[12]);
+        return result[12];
     }
 
     private Result royalStraightFlush() {
@@ -180,27 +183,21 @@ public class User {
     }
 
     private Result backStraight() { // A 2 3 4 5
-        if (list[0].getNumber() == 1 && list[1].getNumber() == 2 && list[2].getNumber() == 3 &&
-                list[3].getNumber() == 4 && list[4].getNumber() == 5) {
-            return new Result(38, 14, list[0].getSuit());
+        if (isAce) {
+            if (list[1].getNumber() == 10 && list[2].getNumber() == 11 && list[3].getNumber() == 12 &&
+                    list[4].getNumber() == 13) {
+                return new Result(38, 14, list[0].getSuit());
+            }
+            if (list[1].getNumber() == 2 && list[2].getNumber() == 3 && list[3].getNumber() == 4 &&
+                    list[4].getNumber() == 5) {
+                return new Result(38, 14, list[0].getSuit());
+            }
         }
         return null;
     }
 
-    private Result straight() { // 숫자가 연달아 있는 패 , Ace생각
+    private Result straight() { // 숫자가 연달아 있는 패 , Ace있는건 backStraight
         int number = list[0].getNumber();
-
-        if (isAce) {
-            if (list[1].getNumber() == 10 && list[2].getNumber() == 11 && list[3].getNumber() == 12 &&
-                    list[4].getNumber() == 13) {
-                return new Result(39, 14, list[0].getSuit());
-            }
-            if (list[1].getNumber() == 2 && list[2].getNumber() == 3 && list[3].getNumber() == 4 &&
-                    list[4].getNumber() == 5) {
-                return new Result(39, 14, list[0].getSuit());
-            }
-            return null;
-        }
 
         for (int i = 0; i < 5; i++) {
             if (number != list[i].getNumber()) {
@@ -231,12 +228,24 @@ public class User {
 
     private Result twoPair() { // 페어가 2개
         int check = 0;
-        for (int i = 0; i < 4; i++) {
-            if (list[i].getNumber() == list[i + 1].getNumber()) {
-                check++;
+
+        if (isAce) {
+            for (int i = 4; i >= 1; i--) {
+                if (list[i].getNumber() == list[i - 1].getNumber()) {
+                    check++;
+                }
+                if (check == 2) {
+                    return new Result(41, 14, list[i - 1].getSuit());
+                }
             }
-            if (check == 2) {
-                return new Result(41, list[i + 1].getNumber(), list[i + 1].getSuit());
+        } else {
+            for (int i = 0; i < 4; i++) {
+                if (list[i].getNumber() == list[i + 1].getNumber()) {
+                    check++;
+                }
+                if (check == 2) {
+                    return new Result(41, list[i + 1].getNumber(), list[i + 1].getSuit());
+                }
             }
         }
 
@@ -244,9 +253,19 @@ public class User {
     }
 
     private Result onePair() { // 페어가 한개
-        for (int i = 4; i >= 1; i--) {
-            if (list[i].getNumber() == list[i - 1].getNumber()) {
-                return new Result(42, list[i].getNumber(), list[i].getSuit());
+
+
+        if (isAce) {
+            for (int i = 0; i < 4; i++) {
+                if (list[i].getNumber() == list[i + 1].getNumber()) {
+                    return new Result(42, 14, list[i + 1].getSuit());
+                }
+            }
+        } else {
+            for (int i = 4; i >= 1; i--) {
+                if (list[i].getNumber() == list[i - 1].getNumber()) {
+                    return new Result(42, list[i].getNumber(), list[i].getSuit());
+                }
             }
         }
         return null;
